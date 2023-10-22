@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:website/pages/home.dart';
+import 'package:website/pages/weather.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -51,10 +53,18 @@ Widget DesktopNavBar(){
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        navButton('Home'),
-        navButton('Weather'),
-        navButton('Equipment'),
-        navButton('Forum'),
+        navButton('Home', () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+        }),
+        navButton('Weather', () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Weather()));
+        }),
+         navButton('Equipment', () {
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => Equipment()));
+        }),
+         navButton('Forum', () {
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => Forum()));
+        }),
         Container(
           height: 45,
           child: ElevatedButton(
@@ -67,14 +77,13 @@ Widget DesktopNavBar(){
   );
 }
 
-
-  Widget navButton(String text){
+  Widget navButton(String text, VoidCallback onPressed){
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 10
         ),
       child: TextButton(
-        onPressed: (){},
+        onPressed: onPressed,
         child: Text(
           text,
           style: TextStyle(

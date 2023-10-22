@@ -39,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget MobileDashboard(){
+  Widget MobileDashboard(){ //hamburger menu does not work...
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(color: AppColors.primary),
