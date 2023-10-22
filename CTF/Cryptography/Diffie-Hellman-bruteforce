@@ -1,0 +1,20 @@
+# Generated with GPT-4 and confirmed with https://www.dcode.fr/diffie-hellman-key-exchange
+# diffie hellman brute
+def brute_force_dh(p, g, A, B):
+    # Try all possible values for a and b
+    for a in range(p):
+        if pow(g, a, p) == A:
+            print(f"Found secret integer a: {a}")
+            break
+    for b in range(p):
+        if pow(g, b, p) == B:
+            print(f"Found secret integer b: {b}")
+            break
+
+# Given values
+p = 8089
+g = 823
+A = 1228
+B = 6820
+
+brute_force_dh(p, g, A, B)
