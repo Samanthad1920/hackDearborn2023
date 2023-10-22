@@ -1,30 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location Data Collection</title>
 </head>
 <body>
-<<<<<<< Updated upstream
     <p>WELCOME BACKPACKER!</p>
-<<<<<<< Updated upstream
-=======
     <div id="facilities_list"></div>
-=======
+
     <h1>Location Data Collection</h1>
     
     <p>Click the button below to get your current location:</p>
     <button onclick="getLocation()">Get Location</button>
 
-    <p>Enter your maximum travel distance (in miles):</p>
-    <input type="number" id="maxDistance" placeholder="Enter max distance">
-    
-    <p>Enter your state 2-letter initials:</p>
-    <input type="text" id="stateInitials" placeholder="State initials (e.g., CA)">
-    
-    <button onclick="submitLocationData()">Submit Data</button>
+    <form action="display-locations.php" method="get">
+        <p>Enter your maximum travel distance (in miles):</p>
+        <input type="number" name="maxDistance" placeholder="Enter max distance" required>
+        
+        <p>Enter your state 2-letter initials:</p>
+        <input type="text" name="stateInitials" placeholder="State initials (e.g., CA)" required>
+        
+        <input type="hidden" name="latitude" id="latitudeInput">
+        <input type="hidden" name="longitude" id="longitudeInput">
+        
+        <button type="submit">Submit Data</button>
+    </form>
 
     <div id="locationResult"></div>
->>>>>>> Stashed changes
 
     <script>
         function getLocation() {
@@ -36,22 +39,14 @@
                     document.getElementById("locationResult").innerHTML = `
                         Location: Latitude ${latitude}, Longitude ${longitude}
                     `;
+
+                    document.getElementById("latitudeInput").value = latitude;
+                    document.getElementById("longitudeInput").value = longitude;
                 });
             } else {
                 alert("Geolocation is not available in your browser.");
             }
         }
-
-        function submitLocationData() {
-            const maxDistance = document.getElementById("maxDistance").value;
-            const stateInitials = document.getElementById("stateInitials").value;
-
-            console.log("Max Distance:", maxDistance);
-            console.log("State Initials:", stateInitials);
-
-            window.location.href = 'display-locations.html';
-        }
     </script>
->>>>>>> Stashed changes
 </body>
 </html>
