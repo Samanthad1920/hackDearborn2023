@@ -1,48 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Backpacking Finder</title>
+    <title>Location Data Collection</title>
 </head>
 <body>
+<<<<<<< Updated upstream
     <p>WELCOME BACKPACKER!</p>
 <<<<<<< Updated upstream
 =======
     <div id="facilities_list"></div>
+=======
+    <h1>Location Data Collection</h1>
+    
+    <p>Click the button below to get your current location:</p>
+    <button onclick="getLocation()">Get Location</button>
+
+    <p>Enter your maximum travel distance (in miles):</p>
+    <input type="number" id="maxDistance" placeholder="Enter max distance">
+    
+    <p>Enter your state 2-letter initials:</p>
+    <input type="text" id="stateInitials" placeholder="State initials (e.g., CA)">
+    
+    <button onclick="submitLocationData()">Submit Data</button>
+
+    <div id="locationResult"></div>
+>>>>>>> Stashed changes
 
     <script>
-        const apiKey = "ead50ecb-d210-43ef-a215-3adc3370c1aa";
-        const apiUrl = "https://ridb.recreation.gov/api/v1/facilities";
+        function getLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
 
-        const state = "MI";
-        const activity = "BACKPACKING"
-
-
-        async function fetchFacilities() {
-            try {
-                const response = await fetch(`${apiUrl}?apikey=${apiKey}&state=${state}&activity=${activity}`);
-                const data = await response.json();
-                const facilitiesList = document.getElementById("facilities_list");
-                facilitiesList.innerHTML = ""; 
-
-                if (data.RECDATA) {
-                    const facilities = data.RECDATA;
-                    const ul = document.createElement("ul");
-                    facilities.forEach(facilities => {
-                        const li = document.createElement("li");
-                        li.textContent = facilities.FacilityName;
-                        ul.appendChild(li);
-                    });
-                    facilitiesList.appendChild(ul);
-                } else {
-                    facilitiesList.textContent = "No facilities found.";
-                }
-            } catch (error) {
-                console.error("Error fetching data: " + error);
+                    document.getElementById("locationResult").innerHTML = `
+                        Location: Latitude ${latitude}, Longitude ${longitude}
+                    `;
+                });
+            } else {
+                alert("Geolocation is not available in your browser.");
             }
         }
-        fetchFacilities();
+
+        function submitLocationData() {
+            const maxDistance = document.getElementById("maxDistance").value;
+            const stateInitials = document.getElementById("stateInitials").value;
+
+            console.log("Max Distance:", maxDistance);
+            console.log("State Initials:", stateInitials);
+
+            window.location.href = 'display-locations.html';
+        }
     </script>
 >>>>>>> Stashed changes
 </body>
