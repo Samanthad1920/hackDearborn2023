@@ -1,9 +1,3 @@
-<?php
-    $stateInitials = $_GET['stateInitials'];
-    $maxDistance = $_GET['maxDistance'];
-    $latitude = $_GET['latitude'];
-    $longitude = $_GET['longitude'];
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +10,7 @@
 </head>
 <body>
     <p>WELCOME BACKPACKER!</p>
-    <div id="map" style="height: 400px;"></div>
+    <div id="map" style="height: 800px;"></div>
 
     <script>
         const apiKey = "ead50ecb-d210-43ef-a215-3adc3370c1aa";
@@ -27,16 +21,22 @@
         const maxDistance = "<?php echo $_GET['maxDistance']; ?>";
         const userLatitude = <?php echo $_GET['latitude']; ?>;
         const userLongitude = <?php echo $_GET['longitude']; ?>;
-        
+
         // centered on user (maybe make a marker for current location)
         const map = L.map('map').setView([userLatitude, userLongitude], 10);
 
+        if(userLatitude != null && userLongitude != null) 
+            L.marker([userLongitude, userLatitude])
+                .addTo(map)
+                .bindPopup('Your Location');
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        
+        
         async function fetchFacilities() {
             try {
                 const response = await fetch(`${apiUrl}?apikey=${apiKey}&state=${stateInitials}&activity=${activity}`);
