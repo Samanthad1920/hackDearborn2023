@@ -7,37 +7,40 @@
 </head>
 <body>
     <p>WELCOME BACKPACKER!</p>
-    <div id="activities_list"></div>
+    <div id="facilities_list"></div>
 
     <script>
         const apiKey = "ead50ecb-d210-43ef-a215-3adc3370c1aa";
-        const apiUrl = "https://ridb.recreation.gov/api/v1/activities";
+        const apiUrl = "https://ridb.recreation.gov/api/v1/facilities";
+
+        const state = "MI";
+        const activity = "BACKPACKING"
 
 
-        async function fetchActivities() {
+        async function fetchFacilities() {
             try {
-                const response = await fetch(`${apiUrl}?apikey=${apiKey}`);
+                const response = await fetch(`${apiUrl}?apikey=${apiKey}&state=${state}&activity=${activity}`);
                 const data = await response.json();
-                const activitiesList = document.getElementById("activities_list");
-                activitiesList.innerHTML = ""; 
+                const facilitiesList = document.getElementById("facilities_list");
+                facilitiesList.innerHTML = ""; 
 
                 if (data.RECDATA) {
-                    const activities = data.RECDATA;
+                    const facilities = data.RECDATA;
                     const ul = document.createElement("ul");
-                    activities.forEach(activity => {
+                    facilities.forEach(facilities => {
                         const li = document.createElement("li");
-                        li.textContent = activity.ActivityName;
+                        li.textContent = facilities.FacilityName;
                         ul.appendChild(li);
                     });
-                    activitiesList.appendChild(ul);
+                    facilitiesList.appendChild(ul);
                 } else {
-                    activitiesList.textContent = "No activities found.";
+                    facilitiesList.textContent = "No facilities found.";
                 }
             } catch (error) {
                 console.error("Error fetching data: " + error);
             }
         }
-        fetchActivities();
+        fetchFacilities();
     </script>
 </body>
 </html>
